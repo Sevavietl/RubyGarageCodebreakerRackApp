@@ -1,0 +1,16 @@
+<% if result == :won %>
+    <div class="alert alert-success" role="alert">
+        <strong>Congrats!</strong> You have won the game.
+    </div>
+<% else %>
+    <div class="alert alert-danger" role="alert">
+        <strong>It's a pity!</strong> You have lost the game.
+    </div>
+<% end %>
+
+<div class="row">
+    <div class="col">
+        <a class="btn btn-primary" href="/" role="button">Start New Game</a>
+        <a class="btn btn-secondary" href="/statistics" role="button">Statistics</a>
+    </div>
+</div>

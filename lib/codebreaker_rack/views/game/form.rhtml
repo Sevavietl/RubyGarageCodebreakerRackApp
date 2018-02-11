@@ -1,0 +1,63 @@
+<h3>Guess a four digit code with numbers from 1 to 6</h2>
+
+<form class="form-signin" action="/" method="POST">    
+    <div class="form-group">
+        <label for="inputCode" class="sr-only">Code:</label>
+        <input type="text" id="inputCode" class="form-control" name="code" placeholder="Code" required="" autofocus="">
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-md btn-primary btn-block" type="submit">Submit</button>
+        </div>
+        <div class="col">
+            <a class="btn btn-md btn-block" href="#" onclick="getHint()">Hint</a>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col text-center"><%= attempt_number %> / <%= number_of_attempts %></div>
+</div>
+
+<% if attempts %>
+    <h3>Attempts:</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>    
+                <th scope="col">Code</th>
+                <th scope="col">Matching</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% attempts.each_with_index do |attempt, index| %>
+                <tr>
+                    <th scope="row"><%= index + 1 %></th>
+                    <td><%= attempt[:code] %></td>
+                    <td><%= attempt[:matching] %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% end %>
+
+<script>
+    function getHint() {
+        const xhttp = new XMLHttpRequest;
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                const hint = this.responseText;
+
+                if (hint === null || hint === '') {
+                    alert("Sorry, you're out of hints.");    
+                } else {
+                    alert(`Your hint is: ${hint}.`);    
+                }
+            }
+        };
+        xhttp.open('GET', '/hint', true);
+        xhttp.send();
+    }
+</script>
